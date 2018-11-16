@@ -8,6 +8,7 @@
     <title>Mars Information</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
@@ -30,7 +31,7 @@
             <div class='row'>
                 <div class='col-md-8'>
                     <h2>Featured Mars Image</h2>
-                    <img src='{{ info.featured_image }}' alt='Image of Mars'>
+                    <img src='{{ info.featured_image }}' width='85%' height='85%' alt='Image of Mars'>
                 </div>
                 <div class='col-md-4'>
                     <h3>Current Weather on Mars</h3>
@@ -41,8 +42,8 @@
                                 <h3>Mars Facts</h3>
                             </td>
                         </tr>
-                        {% for dict_item in info.mars_facts %}
-                            {% for key, value in dict_item.items %}
+                        {% for x in info.mars_facts %}
+                            {% for key, value in x.items %}
                         <tr>
                             <td>
                                 <p>{{ key }}</p>
