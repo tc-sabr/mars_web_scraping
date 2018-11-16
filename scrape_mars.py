@@ -1,6 +1,5 @@
 from splinter import Browser
 from bs4 import BeautifulSoup
-import pandas as pd 
 import time
 
 def init_browser():
@@ -40,7 +39,8 @@ def scrape():
     featured_image = soup.find('article')['style']
     featured_image = featured_image.split("('")[1]
     featured_image = featured_image.split("')")[0]
-    featured_image_url = f'{featured_url.split("/?")[0]}{featured_image}'
+    featured_image = featured_image.split("spaceimages")[1]
+    featured_image_url = featured_url.split("/?")[0] + featured_image
 
     browser.visit(mars_weather_url)
 
@@ -55,8 +55,22 @@ def scrape():
 
     time.sleep(2)
 
-    facts_tables = pd.read_html(mars_facts_url)
-    facts_tables = facts_tables[0]
+    facts_html = browser.html
+    soup = BeautifulSoup(facts_html, 'html.parser')
+
+    facts_table = soup.find('table', id='tablepress-mars')
+    
+    left_col_facts = facts_table.find_all('strong')
+    col_one_facts = []
+    for x in left_col_facts:
+        col_one_facts.append(x.text)
+    
+    right_col_facts = facts_table.find_all('td', class_='column-2')
+    col_two_facts = []
+    for y in right_col_facts:
+        col_two_facts.append(y.text)
+    
+    full_facts_table = dict(zip(col_one_facts, col_two_facts))
 
     hemisphere_image_urls = []
 
@@ -133,7 +147,7 @@ def scrape():
         'news_paragraph': news_p,
         'featured_image': featured_image_url,
         'mars_weather': mars_weather,
-        'mars_facts': facts_tables,
+        'mars_facts': full_facts_table,
         'hemisphere_image_urls': hemisphere_image_urls
     }
 
