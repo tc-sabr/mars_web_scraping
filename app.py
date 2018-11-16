@@ -11,6 +11,8 @@ def home():
 
     mars_dataset = mongo.db.collection.find_one()
 
+    print(mars_dataset)
+
     return render_template('index.html', info=mars_dataset)
 
 @app.route('/scrape')
