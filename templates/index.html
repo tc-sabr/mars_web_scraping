@@ -42,13 +42,10 @@
                                 <h3>Mars Facts</h3>
                             </td>
                         </tr>
-                        {% for key, value in info.mars_facts.iteritems %}
+                        {% for fact in info.mars_facts %}
                         <tr>
                             <td>
-                                <p>{{ key }}</p>
-                            </td>
-                            <td>
-                                <p>{{ value }}</p>
+                                <p>{{ fact }}</p>
                             </td>
                         </tr>
                         {% endfor %}
@@ -60,12 +57,12 @@
                 </div>
             </div>
             <div class='row'>
-                <div class='col-md-3'>
-                    {% for hemisphere in info.hemisphere_image_urls %}
-                        <img src='{{ hemisphere.img_url }}' alt= '{{ hemisphere.title }}' class='img-thumbnail'>
-                        <h4>{{ hemisphere.title }}</h4>
-                    {% endfor %}
+                {% for hemisphere in info.hemisphere_image_urls %}
+                <div class='col-md-6'>
+                    <img src='{{ hemisphere.img_url }}' alt= '{{ hemisphere.title }}' class='img-thumbnail'>
+                    <h4>{{ hemisphere.title }}</h4>
                 </div>
+                {% endfor %}
             </div>
 
         
