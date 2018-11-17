@@ -70,7 +70,9 @@ def scrape():
     for y in right_col_facts:
         col_two_facts.append(y.text)
     
-    full_facts_table = dict(zip(col_one_facts, col_two_facts))
+    full_facts_table = []
+    for each in range(0, len(col_one_facts)):
+        full_facts_table.append(col_one_facts[each] + " " + col_two_facts[each])
 
     hemisphere_image_urls = []
 
